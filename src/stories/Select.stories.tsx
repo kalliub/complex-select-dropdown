@@ -22,6 +22,7 @@ const Template: StoryFn<typeof MultiSelect> = args => (
 export const WithoutSections = Template.bind({})
 WithoutSections.args = {
     label: "Select Without Sections",
+    variant: "withoutSections",
     options: ["Option 1", "Option 2", "Option 3"],
 }
 

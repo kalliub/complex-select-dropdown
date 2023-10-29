@@ -20,10 +20,10 @@ const MultiSelectDropdown = ({ anchorEl, setAnchorEl }) => {
                 horizontal: "left",
             }}
         >
-            <Box p={2} minWidth={400} maxHeight={300}>
+            <Box py={1} minWidth={400} maxHeight={300}>
                 <Grid container flexDirection='column'>
                     {variant === "withoutSections" &&
-                        options?.map(option => (
+                        (options as string[])?.map(option => (
                             <DropdownItem key={option}>{option}</DropdownItem>
                         ))}
 

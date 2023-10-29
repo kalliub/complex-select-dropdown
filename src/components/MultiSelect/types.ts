@@ -11,10 +11,10 @@ interface WithSectionsProps extends BaseProps {
     options: Record<string, string[]>
     onClose?: () => Record<string, string[]>
 }
-interface WithoutSectionProps extends BaseProps {
+interface WithoutSectionsProps extends BaseProps {
     variant: "withoutSections"
     options: string[]
     onClose?: () => string[]
 }
 
-export type MultiSelectProps = WithSectionsProps | WithoutSectionProps
+export type MultiSelectProps = WithSectionsProps | WithoutSectionsProps

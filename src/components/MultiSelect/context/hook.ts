@@ -1,26 +1,14 @@
 import { createContext, useContext } from "react"
 import { MultiSelectProps } from "../types"
 
-interface ContextBase {
+export interface MultiSelectContext {
     variant: MultiSelectProps["variant"] | null
     options: MultiSelectProps["options"] | null
     selectedOptions: MultiSelectProps["options"] | null
-    setSelectedOptions: (options: MultiSelectProps["options"]) => void
+    setSelectedOptions: React.Dispatch<
+        React.SetStateAction<MultiSelectProps["options"] | null>
+    >
 }
-
-interface WithSectionsVariantContext extends ContextBase {
-    variant: "withSections" | null
-    options: Record<string, string[]> | null
-}
-
-interface WithoutSectionVariantContext extends ContextBase {
-    variant: "withoutSections" | null
-    options: string[] | null
-}
-
-export type MultiSelectContext =
-    | WithSectionsVariantContext
-    | WithoutSectionVariantContext
 
 export const emptyContext = {
     variant: null,
