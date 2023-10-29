@@ -3,7 +3,7 @@ import Icon from "components/Icon"
 import { useRef, useState } from "react"
 import { MultiSelectProps } from "./types"
 import { MultiSelectProvider } from "./context"
-import MultiSelectDropdown from "./Dropdown"
+import MultiSelectDropdown from "./MultiSelectDropdown"
 
 const MultiSelect = ({
     variant,
