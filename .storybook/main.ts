@@ -9,6 +9,8 @@ const config: StorybookConfig = {
         "@storybook/addon-essentials",
         "@storybook/addon-onboarding",
         "@storybook/addon-interactions",
+        "@storybook/addon-themes",
+        // "@storybook/themes"
     ],
     framework: {
         name: "@storybook/react-vite",
@@ -19,9 +21,9 @@ const config: StorybookConfig = {
     },
     async viteFinal(config) {
         return {
-          ...config,
-          plugins: [...(config.plugins || []), tsconfigPaths.default()],
-        };
-      },
+            ...config,
+            plugins: [...(config.plugins || []), tsconfigPaths.default()],
+        }
+    },
 }
 export default config

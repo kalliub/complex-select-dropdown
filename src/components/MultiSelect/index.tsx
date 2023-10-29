@@ -1,23 +1,16 @@
-import {
-    Box,
-    ButtonBase,
-    FormLabel,
-    FormLabelProps,
-    Grid,
-    Input,
-    InputProps,
-    Popover,
-    Typography,
-} from "@mui/material"
-import style from "./style"
+import { ButtonBase, FormLabel, Grid, Input } from "@mui/material"
 import Icon from "components/Icon"
 import { useRef, useState } from "react"
+import { MultiSelectProps } from "./types"
+import { MultiSelectProvider } from "./context"
+import MultiSelectDropdown from "./Dropdown"
 
-interface MultiSelectProps extends Omit<InputProps, "label"> {
-    label: FormLabelProps["children"]
-}
-
-const MultiSelect = ({ label, sx, ...inputProps }: MultiSelectProps) => {
+const MultiSelect = ({
+    variant,
+    options,
+    label,
+    ...inputProps
+}: MultiSelectProps) => {
     const inputRef = useRef(null)
     const [anchorEl, setAnchorEl] = useState(null)
 
@@ -44,34 +37,15 @@ const MultiSelect = ({ label, sx, ...inputProps }: MultiSelectProps) => {
             <Input
                 ref={inputRef}
                 disableUnderline
+                placeholder='Type to filter'
                 onChange={({ target: { value } }) => console.log(value)}
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                sx={{ ...style, ...(sx as any) }}
                 endAdornment={renderEndAdornment()}
                 {...inputProps}
             />
 
-            <Popover
-                open={Boolean(anchorEl)}
-                anchorEl={anchorEl}
-                onClose={() => setAnchorEl(null)}
-                anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
-                }}
-                transformOrigin={{
-                    vertical: "top",
-                    horizontal: "left",
-                }}
-            >
-                <Box p={2}>
-                    <Grid container>
-                        <Grid item xs={12}>
-                            <Typography variant='body1'>Option 1</Typography>
-                        </Grid>
-                    </Grid>
-                </Box>
-            </Popover>
+            <MultiSelectProvider {...{ variant, options }}>
+                <MultiSelectDropdown {...{ anchorEl, setAnchorEl }} />
+            </MultiSelectProvider>
         </Grid>
     )
 }
