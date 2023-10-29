@@ -9,13 +9,15 @@ import Icon from "components/Icon"
 import { useState } from "react"
 import DropdownItem from "./DropdownItem"
 import palette from "styles/palette"
+// import { useMultiSelectContext } from "../context"
 
 interface DropdownSectionProps {
     title: string
-    options: string[]
+    options: Record<string, string>
 }
 
 const DropdownSection = ({ title, options }: DropdownSectionProps) => {
+    // const { setSelectedOptions } = useMultiSelectContext()
     const [isOpen, setIsOpen] = useState(false)
 
     const toggleAccordion = () => setIsOpen(currValue => !currValue)
@@ -44,9 +46,12 @@ const DropdownSection = ({ title, options }: DropdownSectionProps) => {
             </AccordionSummary>
 
             <AccordionDetails sx={{ padding: 0 }}>
-                {options.map(option => (
-                    <DropdownItem key={option} sx={{ pl: 4 }}>
-                        {option}
+                {Object.entries(options).map(([optionLabel, optionValue]) => (
+                    <DropdownItem
+                        key={`${optionLabel}-${optionValue}`}
+                        sx={{ pl: 4 }}
+                    >
+                        {optionLabel}
                     </DropdownItem>
                 ))}
             </AccordionDetails>

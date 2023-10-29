@@ -22,21 +22,32 @@ const MultiSelectDropdown = ({ anchorEl, setAnchorEl }) => {
         >
             <Box py={1} minWidth={400} maxHeight={300}>
                 <Grid container flexDirection='column'>
-                    {variant === "withoutSections" &&
-                        (options as string[])?.map(option => (
-                            <DropdownItem key={option}>{option}</DropdownItem>
-                        ))}
-
-                    {variant === "withSections" &&
-                        Object.entries(options || {}).map(
-                            ([section, options]) => (
+                    {Object.entries(options).map(([key, value]) => {
+                        console.log(key, value)
+                        if (variant === "withSections") {
+                            const [section, options]: [
+                                string,
+                                Record<string, string>,
+                            ] = [key, value]
+                            return (
                                 <DropdownSection
                                     key={section}
                                     options={options}
                                     title={section}
                                 />
-                            ),
-                        )}
+                            )
+                        } else {
+                            const [optionLabel, optionValue]: [string, string] =
+                                [key, value]
+                            return (
+                                <DropdownItem
+                                    key={`${optionLabel}-${optionValue}`}
+                                >
+                                    {optionLabel}
+                                </DropdownItem>
+                            )
+                        }
+                    })}
                 </Grid>
             </Box>
         </Popover>

@@ -23,7 +23,12 @@ export const WithoutSections = Template.bind({})
 WithoutSections.args = {
     label: "Select Without Sections",
     variant: "withoutSections",
-    options: ["Option 1", "Option 2", "Option 3"],
+    options: {
+        "Option One": "option-one",
+        "Option Two": "option-two",
+        "Option Three": "option-three",
+        "Option Four": "option-four",
+    },
 }
 
 export const WithSections = Template.bind({})
@@ -31,7 +36,13 @@ WithSections.args = {
     label: "Select With Sections",
     variant: "withSections",
     options: {
-        "Section One": ["Option 1", "Option 2"],
-        "Section Two": ["Option 3", "Option 4"],
+        "Section One": {
+            "Option One": "option-one",
+            "Option Two": "option-two",
+        },
+        "Section Two": {
+            "Option Three": "option-three",
+            "Option Four": "option-four",
+        },
     },
 }

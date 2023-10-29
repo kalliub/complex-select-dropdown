@@ -13,9 +13,9 @@ const MultiSelect = ({
 }: MultiSelectProps) => {
     const inputRef = useRef(null)
     const [anchorEl, setAnchorEl] = useState(null)
-    const [selectedOptions, setSelectedOptions] = useState<
-        MultiSelectProps["options"] | null
-    >(null)
+    // const [selectedOptions, setSelectedOptions] = useState<
+    //     MultiSelectProps["options"]
+    // >({})
 
     const renderEndAdornment = () => {
         return (
@@ -46,12 +46,7 @@ const MultiSelect = ({
                 {...inputProps}
             />
 
-            <MultiSelectProvider
-                variant={variant}
-                options={options}
-                selectedOptions={selectedOptions}
-                setSelectedOptions={setSelectedOptions}
-            >
+            <MultiSelectProvider variant={variant} options={options}>
                 <MultiSelectDropdown {...{ anchorEl, setAnchorEl }} />
             </MultiSelectProvider>
         </Grid>

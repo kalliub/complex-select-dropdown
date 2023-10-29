@@ -3,18 +3,18 @@ import { MultiSelectProps } from "../types"
 
 export interface MultiSelectContext {
     variant: MultiSelectProps["variant"] | null
-    options: MultiSelectProps["options"] | null
-    selectedOptions: MultiSelectProps["options"] | null
-    setSelectedOptions: React.Dispatch<
-        React.SetStateAction<MultiSelectProps["options"] | null>
-    >
+    options: MultiSelectProps["options"]
+    // selectedOptions: MultiSelectProps["options"]
+    // setSelectedOptions: React.Dispatch<
+    //     React.SetStateAction<MultiSelectProps["options"]>
+    // >
 }
 
 export const emptyContext = {
     variant: null,
-    options: null,
-    selectedOptions: null,
-    setSelectedOptions: () => false,
+    options: {},
+    // selectedOptions: [],
+    // setSelectedOptions: () => false,
 }
 
 export const multiSelectContext =
