@@ -3,6 +3,7 @@ import { useMultiSelectContext } from "../context"
 import DropdownItem from "./DropdownItem"
 import DropdownSection from "./DropdownSection"
 import { SelectOption, SelectSection } from "../types"
+import EmptyDropdown from "../EmptyDropdown"
 
 const MultiSelectDropdown = ({ anchorEl, setAnchorEl }) => {
     const { variant, options, selectedOptions, setSelectedOptions } =
@@ -65,6 +66,7 @@ const MultiSelectDropdown = ({ anchorEl, setAnchorEl }) => {
     return (
         <Popover
             open={Boolean(anchorEl)}
+            disableAutoFocus
             anchorEl={anchorEl}
             onClose={() => setAnchorEl(null)}
             anchorOrigin={{
@@ -75,9 +77,13 @@ const MultiSelectDropdown = ({ anchorEl, setAnchorEl }) => {
                 vertical: "top",
                 horizontal: "left",
             }}
+            sx={{
+                mt: 1,
+            }}
         >
             <Box py={1} minWidth={400} maxHeight={300}>
                 <Grid container flexDirection='column'>
+                    {Object.entries(options).length === 0 && <EmptyDropdown />}
                     {Object.entries(options).map(([key, value]) => {
                         if (variant === "withSections") {
                             const [section, options]: [string, SelectOption] = [
