@@ -30,7 +30,13 @@ const MultiSelect = ({
 
     const renderEndAdornment = () => {
         return (
-            <Grid container justifyContent='flex-end' alignItems='center'>
+            <Grid
+                container
+                justifyContent='flex-end'
+                alignItems='center'
+                width='fit-content'
+                flexWrap='nowrap'
+            >
                 {countBadge && selectedOptionsCount > 0 && (
                     <InputBadge>{selectedOptionsCount}</InputBadge>
                 )}
