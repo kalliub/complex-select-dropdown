@@ -19,7 +19,7 @@ This is one of my biggest challenges in 2023, when I had to implement a componen
 - Items selection
 - Options filtering with a text input
 - Variants:
-  - Single selection;
+  - Single selection (To be implemented);
   - Multiple selection;
   - Options grouped by an Accordion.
 
