@@ -22,3 +22,12 @@ This is one of my biggest challenges in 2023, when I had to implement a componen
   - Single selection;
   - Multiple selection;
   - Options grouped by an Accordion.
+
+## How to run
+
+Although this project uses Vite, the component could be viewed in Storybook. To run it, just run the following commands and the browser will open on `localhost:6006`:
+
+```bash
+npm install
+npm run storybook
+```
