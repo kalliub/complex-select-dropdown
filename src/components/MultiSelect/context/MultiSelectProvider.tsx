@@ -5,14 +5,18 @@ const MultiSelectProvider = ({
     children,
     variant,
     options,
+    selectedOptions,
+    setSelectedOptions,
 }: { children: ReactElement } & MultiSelectContext) => {
     const providerValue = useMemo(() => {
         return {
             ...emptyContext,
             variant,
             options: options,
+            selectedOptions,
+            setSelectedOptions,
         }
-    }, [options, variant])
+    }, [options, selectedOptions, setSelectedOptions, variant])
 
     return (
         <multiSelectContext.Provider value={providerValue}>

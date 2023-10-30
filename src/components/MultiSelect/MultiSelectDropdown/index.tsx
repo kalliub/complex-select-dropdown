@@ -2,9 +2,65 @@ import { Box, Grid, Popover } from "@mui/material"
 import { useMultiSelectContext } from "../context"
 import DropdownItem from "./DropdownItem"
 import DropdownSection from "./DropdownSection"
+import { SelectOption, SelectSection } from "../types"
 
 const MultiSelectDropdown = ({ anchorEl, setAnchorEl }) => {
-    const { variant, options } = useMultiSelectContext()
+    const { variant, options, selectedOptions, setSelectedOptions } =
+        useMultiSelectContext()
+
+    const handleOptionClick = ({
+        optionLabel,
+        optionValue,
+        sectionTitle = "",
+    }: {
+        optionLabel: string
+        optionValue: string
+        sectionTitle?: string
+    }) => {
+        const isOptionSelected = Boolean(
+            variant === "withSections"
+                ? selectedOptions[sectionTitle]?.[optionLabel]
+                : selectedOptions[optionLabel],
+        )
+
+        if (variant === "withSections") {
+            const typedSelectedOptions = selectedOptions as SelectSection
+            if (isOptionSelected) {
+                console.log("delete")
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                const { [optionLabel]: omittedValue, ...restOfSectionOptions } =
+                    typedSelectedOptions[sectionTitle]
+
+                setSelectedOptions({
+                    ...typedSelectedOptions,
+                    [sectionTitle]: restOfSectionOptions,
+                })
+            } else {
+                const newSelectedOptions = {
+                    ...typedSelectedOptions,
+                    [sectionTitle]: {
+                        ...typedSelectedOptions[sectionTitle],
+                        [optionLabel]: optionValue,
+                    },
+                }
+
+                setSelectedOptions(newSelectedOptions)
+            }
+        } else {
+            const typedSelectedOptions = selectedOptions as SelectOption
+            if (isOptionSelected) {
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                const { [optionLabel]: omittedValue, ...restOfOptions } =
+                    typedSelectedOptions
+                setSelectedOptions(restOfOptions)
+            } else {
+                setSelectedOptions({
+                    ...typedSelectedOptions,
+                    [optionLabel]: optionValue,
+                })
+            }
+        }
+    }
 
     return (
         <Popover
@@ -23,25 +79,46 @@ const MultiSelectDropdown = ({ anchorEl, setAnchorEl }) => {
             <Box py={1} minWidth={400} maxHeight={300}>
                 <Grid container flexDirection='column'>
                     {Object.entries(options).map(([key, value]) => {
-                        console.log(key, value)
                         if (variant === "withSections") {
-                            const [section, options]: [
-                                string,
-                                Record<string, string>,
-                            ] = [key, value]
+                            const [section, options]: [string, SelectOption] = [
+                                key,
+                                value,
+                            ]
                             return (
                                 <DropdownSection
                                     key={section}
                                     options={options}
                                     title={section}
+                                    onOptionClick={({
+                                        optionLabel,
+                                        optionValue,
+                                    }) =>
+                                        handleOptionClick({
+                                            optionLabel,
+                                            optionValue,
+                                            sectionTitle: section,
+                                        })
+                                    }
                                 />
                             )
                         } else {
                             const [optionLabel, optionValue]: [string, string] =
                                 [key, value]
+
                             return (
                                 <DropdownItem
                                     key={`${optionLabel}-${optionValue}`}
+                                    onClick={() =>
+                                        handleOptionClick({
+                                            optionLabel,
+                                            optionValue,
+                                        })
+                                    }
+                                    checked={Boolean(
+                                        (selectedOptions as SelectOption)[
+                                            optionLabel
+                                        ],
+                                    )}
                                 >
                                     {optionLabel}
                                 </DropdownItem>

@@ -9,15 +9,27 @@ import Icon from "components/Icon"
 import { useState } from "react"
 import DropdownItem from "./DropdownItem"
 import palette from "styles/palette"
-// import { useMultiSelectContext } from "../context"
+import { useMultiSelectContext } from "../context"
+import { SelectSection } from "../types"
 
 interface DropdownSectionProps {
     title: string
     options: Record<string, string>
+    onOptionClick?: ({
+        optionLabel,
+        optionValue,
+    }: {
+        optionLabel: string
+        optionValue: string
+    }) => void
 }
 
-const DropdownSection = ({ title, options }: DropdownSectionProps) => {
-    // const { setSelectedOptions } = useMultiSelectContext()
+const DropdownSection = ({
+    title,
+    options,
+    onOptionClick = () => false,
+}: DropdownSectionProps) => {
+    const { selectedOptions } = useMultiSelectContext()
     const [isOpen, setIsOpen] = useState(false)
 
     const toggleAccordion = () => setIsOpen(currValue => !currValue)
@@ -50,6 +62,17 @@ const DropdownSection = ({ title, options }: DropdownSectionProps) => {
                     <DropdownItem
                         key={`${optionLabel}-${optionValue}`}
                         sx={{ pl: 4 }}
+                        onClick={() => {
+                            onOptionClick({
+                                optionLabel,
+                                optionValue,
+                            })
+                        }}
+                        checked={Boolean(
+                            (selectedOptions as SelectSection)[title]?.[
+                                optionLabel
+                            ],
+                        )}
                     >
                         {optionLabel}
                     </DropdownItem>

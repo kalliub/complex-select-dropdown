@@ -1,9 +1,9 @@
 import {
+    ButtonBase,
     Checkbox,
     FormControlLabel,
     FormControlLabelProps,
 } from "@mui/material"
-import { useMultiSelectContext } from "../context"
 
 export interface DropdownItemProps
     extends Omit<FormControlLabelProps, "children" | "label" | "control"> {
@@ -13,14 +13,15 @@ export interface DropdownItemProps
 const DropdownItem = ({
     children,
     sx,
+    onClick = () => false,
     ...formControlLabelProps
 }: DropdownItemProps) => {
-    const { setSelectedOptions } = useMultiSelectContext()
+    const handleClick = event => {
+        onClick(event)
+    }
 
     return (
-        <FormControlLabel
-            control={<Checkbox />}
-            label={children}
+        <ButtonBase
             sx={{
                 m: 0,
                 px: 2,
@@ -32,14 +33,14 @@ const DropdownItem = ({
                 },
                 ...sx,
             }}
-            onClick={() => {
-                setSelectedOptions(prevSelectedOptions => [
-                    ...((prevSelectedOptions as string[]) || []),
-                    children as string,
-                ])
-            }}
-            {...formControlLabelProps}
-        />
+            onClick={handleClick}
+        >
+            <FormControlLabel
+                control={<Checkbox />}
+                label={children}
+                {...formControlLabelProps}
+            />
+        </ButtonBase>
     )
 }
 
