@@ -1,14 +1,16 @@
 import { ButtonBase, FormLabel, Grid, Input } from "@mui/material"
 import Icon from "components/Icon"
-import { useRef, useState } from "react"
+import { useMemo, useRef, useState } from "react"
 import { MultiSelectProps } from "./types"
 import { MultiSelectProvider } from "./context"
 import MultiSelectDropdown from "./MultiSelectDropdown"
+import InputBadge from "components/InputBadge"
 
 const MultiSelect = ({
     variant,
     options,
     label,
+    countBadge,
     ...inputProps
 }: MultiSelectProps) => {
     const inputRef = useRef(null)
@@ -16,20 +18,34 @@ const MultiSelect = ({
     const [selectedOptions, setSelectedOptions] = useState<
         MultiSelectProps["options"]
     >({})
+    const selectedOptionsCount = useMemo(() => {
+        if (variant === "withSections") {
+            return Object.keys(selectedOptions).reduce((acc, curr) => {
+                return acc + Object.keys(selectedOptions[curr]).length
+            }, 0)
+        } else {
+            return Object.keys(selectedOptions).length
+        }
+    }, [selectedOptions, variant])
 
     const renderEndAdornment = () => {
         return (
-            <ButtonBase
-                sx={{
-                    borderRadius: "4px",
-                    padding: "8px",
-                }}
-                onClick={() => {
-                    setAnchorEl(inputRef.current)
-                }}
-            >
-                <Icon name='angle-down' />
-            </ButtonBase>
+            <Grid container justifyContent='flex-end' alignItems='center'>
+                {countBadge && selectedOptionsCount > 0 && (
+                    <InputBadge>{selectedOptionsCount}</InputBadge>
+                )}
+                <ButtonBase
+                    sx={{
+                        borderRadius: "4px",
+                        padding: "8px",
+                    }}
+                    onClick={() => {
+                        setAnchorEl(inputRef.current)
+                    }}
+                >
+                    <Icon name='angle-down' />
+                </ButtonBase>
+            </Grid>
         )
     }
 

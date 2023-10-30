@@ -14,6 +14,7 @@ export type SelectSection = {
 
 interface BaseProps extends Omit<InputProps, "label" | "onClose"> {
     label: FormLabelProps["children"]
+    countBadge?: boolean
 }
 
 interface WithSectionsProps extends BaseProps {

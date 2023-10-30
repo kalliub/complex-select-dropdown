@@ -11,6 +11,9 @@ export default {
             exclude: ["onClose", "ref", "variant"],
         },
     },
+    args: {
+        countBadge: true,
+    },
 } as Meta
 
 const Template: StoryFn<typeof MultiSelect> = args => (
