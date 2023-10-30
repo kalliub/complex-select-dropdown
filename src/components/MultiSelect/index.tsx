@@ -19,9 +19,8 @@ const MultiSelect = ({
     const [selectedOptions, setSelectedOptions] = useState<
         MultiSelectProps["options"]
     >({})
-    const [availableOptions, setAvailableOptions] = useState<
-        MultiSelectProps["options"]
-    >({})
+    const [availableOptions, setAvailableOptions] =
+        useState<MultiSelectProps["options"]>(options)
     const openDropdown = () => {
         if (inputRef.current) {
             setAnchorEl(inputRef.current)

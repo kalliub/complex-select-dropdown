@@ -1,20 +1,22 @@
 import {
     ButtonBase,
     Checkbox,
-    FormControlLabel,
-    FormControlLabelProps,
+    CheckboxProps,
+    Grid,
+    SxProps,
+    Typography,
 } from "@mui/material"
 
-export interface DropdownItemProps
-    extends Omit<FormControlLabelProps, "children" | "label" | "control"> {
-    children: FormControlLabelProps["label"]
+export interface DropdownItemProps extends CheckboxProps {
+    children: string
+    sx?: SxProps
 }
 
 const DropdownItem = ({
     children,
     sx,
     onClick = () => false,
-    ...formControlLabelProps
+    ...checkboxProps
 }: DropdownItemProps) => {
     const handleClick = event => {
         onClick(event)
@@ -35,11 +37,10 @@ const DropdownItem = ({
             }}
             onClick={handleClick}
         >
-            <FormControlLabel
-                control={<Checkbox />}
-                label={children}
-                {...formControlLabelProps}
-            />
+            <Grid container alignItems='center'>
+                <Checkbox {...checkboxProps} />
+                <Typography>{children}</Typography>
+            </Grid>
         </ButtonBase>
     )
 }
