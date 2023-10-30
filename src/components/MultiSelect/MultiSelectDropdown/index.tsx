@@ -27,7 +27,6 @@ const MultiSelectDropdown = ({ anchorEl, setAnchorEl }) => {
         if (variant === "withSections") {
             const typedSelectedOptions = selectedOptions as SelectSection
             if (isOptionSelected) {
-                console.log("delete")
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 const { [optionLabel]: omittedValue, ...restOfSectionOptions } =
                     typedSelectedOptions[sectionTitle]
