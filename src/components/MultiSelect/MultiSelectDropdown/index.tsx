@@ -1,4 +1,4 @@
-import { Box, Grid, Popover } from "@mui/material"
+import { Grid, Popover } from "@mui/material"
 import { useMultiSelectContext } from "../context"
 import DropdownItem from "./DropdownItem"
 import DropdownSection from "./DropdownSection"
