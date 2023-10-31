@@ -79,59 +79,64 @@ const MultiSelectDropdown = ({ anchorEl, setAnchorEl }) => {
             sx={{
                 mt: 1,
             }}
+            slotProps={{
+                paper: {
+                    sx: {
+                        width: "min(100%, 400px)",
+                        maxHeight: "500px",
+                    },
+                },
+            }}
         >
-            <Box py={1} minWidth={400} maxHeight={300}>
-                <Grid container flexDirection='column'>
-                    {Object.entries(options).length === 0 && <EmptyDropdown />}
-                    {Object.entries(options).map(([key, value]) => {
-                        if (variant === "withSections") {
-                            const [section, options]: [string, SelectOption] = [
-                                key,
-                                value,
-                            ]
-                            return (
-                                <DropdownSection
-                                    key={section}
-                                    options={options}
-                                    title={section}
-                                    onOptionClick={({
+            <Grid container py={1} flexDirection='column'>
+                {Object.entries(options).length === 0 && <EmptyDropdown />}
+                {Object.entries(options).map(([key, value]) => {
+                    if (variant === "withSections") {
+                        const [section, options]: [string, SelectOption] = [
+                            key,
+                            value,
+                        ]
+                        return (
+                            <DropdownSection
+                                key={section}
+                                options={options}
+                                title={section}
+                                onOptionClick={({ optionLabel, optionValue }) =>
+                                    handleOptionClick({
                                         optionLabel,
                                         optionValue,
-                                    }) =>
-                                        handleOptionClick({
-                                            optionLabel,
-                                            optionValue,
-                                            sectionTitle: section,
-                                        })
-                                    }
-                                />
-                            )
-                        } else {
-                            const [optionLabel, optionValue]: [string, string] =
-                                [key, value]
+                                        sectionTitle: section,
+                                    })
+                                }
+                            />
+                        )
+                    } else {
+                        const [optionLabel, optionValue]: [string, string] = [
+                            key,
+                            value,
+                        ]
 
-                            return (
-                                <DropdownItem
-                                    key={`${optionLabel}-${optionValue}`}
-                                    onClick={() =>
-                                        handleOptionClick({
-                                            optionLabel,
-                                            optionValue,
-                                        })
-                                    }
-                                    checked={Boolean(
-                                        (selectedOptions as SelectOption)[
-                                            optionLabel
-                                        ],
-                                    )}
-                                >
-                                    {optionLabel}
-                                </DropdownItem>
-                            )
-                        }
-                    })}
-                </Grid>
-            </Box>
+                        return (
+                            <DropdownItem
+                                key={`${optionLabel}-${optionValue}`}
+                                onClick={() =>
+                                    handleOptionClick({
+                                        optionLabel,
+                                        optionValue,
+                                    })
+                                }
+                                checked={Boolean(
+                                    (selectedOptions as SelectOption)[
+                                        optionLabel
+                                    ],
+                                )}
+                            >
+                                {optionLabel}
+                            </DropdownItem>
+                        )
+                    }
+                })}
+            </Grid>
         </Popover>
     )
 }
